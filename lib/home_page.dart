@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localization_arb_provider/src/core/provider/locale_provider.dart';
 import 'package:flutter_localization_arb_provider/src/module/page1.dart';
 import 'package:flutter_localization_arb_provider/src/module/page2.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 
 class HomePage extends StatelessWidget {
@@ -10,12 +12,47 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
         final AppLocalizations langs = AppLocalizations.of(context)!;
+        LocaleProvider localeProvider = Provider.of<LocaleProvider>(context, listen: false);
+
 
     return Scaffold(
+       
         appBar: AppBar(
           centerTitle: true,
           title: const Text('Localization'),
-        ),
+          actions: [
+            
+             IconButton(
+            icon: const Icon(Icons.language),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                   
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          localeProvider.setLocale( const Locale('en'));
+                          Navigator.pop(context);
+                        },
+                        child:const Text('English'),
+                      ),
+                       TextButton(
+                        onPressed: () {
+                          localeProvider.setLocale( const Locale('ar'));
+                          Navigator.pop(context);
+                        },
+                        child:const Text('Arabic'),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+          ),
+        ],
+      ),
         drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -61,4 +98,5 @@ class HomePage extends StatelessWidget {
         ),
       );
   }
+
 }
