@@ -5,55 +5,38 @@ import 'package:flutter_localization_arb_provider/src/module/page2.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
-
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-        final AppLocalizations langs = AppLocalizations.of(context)!;
-        LocaleProvider localeProvider = Provider.of<LocaleProvider>(context, listen: false);
-
+    final AppLocalizations langs = AppLocalizations.of(context)!;
+    LocaleProvider localeProvider =
+        Provider.of<LocaleProvider>(context, listen: false);
 
     return Scaffold(
-       
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text('Localization'),
-          actions: [
-            
-             IconButton(
-            icon: const Icon(Icons.language),
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                   
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () {
-                          localeProvider.setLocale( const Locale('en'));
-                          Navigator.pop(context);
-                        },
-                        child:const Text('English'),
-                      ),
-                       TextButton(
-                        onPressed: () {
-                          localeProvider.setLocale( const Locale('ar'));
-                          Navigator.pop(context);
-                        },
-                        child:const Text('Arabic'),
-                      ),
-                    ],
-                  );
-                },
-              );
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text('Localization'),
+        actions: [
+          PopupMenuButton<String>(
+            onSelected: (String result) {
+              localeProvider.setLocale(Locale(result));
             },
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+              const PopupMenuItem<String>(
+                value: 'en',
+                child: Text('English'),
+              ),
+              const PopupMenuItem<String>(
+                value: 'ar',
+                child: Text('Arabic'),
+              ),
+            ],
           ),
         ],
       ),
-        drawer: Drawer(
+      drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
@@ -72,7 +55,7 @@ class HomePage extends StatelessWidget {
             ListTile(
               title: const Text('Page 1'),
               onTap: () {
-                 Navigator.of(context).push(
+                Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => const Page1(),
                   ),
@@ -82,7 +65,7 @@ class HomePage extends StatelessWidget {
             ListTile(
               title: const Text('Page 2'),
               onTap: () {
-                 Navigator.of(context).push(
+                Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => const Page2(),
                   ),
@@ -93,10 +76,9 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-        body:  Center(
-          child: Text(langs.demoData),
-        ),
-      );
+      body: Center(
+        child: Text(langs.demoData),
+      ),
+    );
   }
-
 }
