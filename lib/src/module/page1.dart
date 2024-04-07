@@ -12,7 +12,7 @@ class Page1 extends StatelessWidget {
         title: const Text('Page 1'),
       ),
       body:  Center(
-        child: Text(langs.demoData),
+        child: Text(langs.demoData2),
       ),
     );
   }

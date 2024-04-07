@@ -77,7 +77,7 @@ class HomePage extends StatelessWidget {
         ),
       ),
       body: Center(
-        child: Text(langs.demoData),
+        child: Text(langs.demoData1),
       ),
     );
   }
