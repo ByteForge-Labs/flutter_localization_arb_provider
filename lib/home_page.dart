@@ -22,7 +22,7 @@ class HomePage extends StatelessWidget {
         actions: [
           PopupMenuButton<String>(
             onSelected: (String result) async {
-              localeProvider.setLocale(Locale(result));
+              localeProvider.changeLanguage(result);
               SharedPreferences prefs = await SharedPreferences.getInstance();
               await prefs.setString('languageCode', result);
             },
