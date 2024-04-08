@@ -13,7 +13,7 @@ import 'package:flutter_localization_arb_provider/main.dart';
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(const MyApp(savedLanguageCode: 'en',));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

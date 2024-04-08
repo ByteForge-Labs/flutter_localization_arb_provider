@@ -4,6 +4,7 @@ import 'package:flutter_localization_arb_provider/src/module/page1.dart';
 import 'package:flutter_localization_arb_provider/src/module/page2.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -20,8 +21,10 @@ class HomePage extends StatelessWidget {
         title: const Text('Localization'),
         actions: [
           PopupMenuButton<String>(
-            onSelected: (String result) {
+            onSelected: (String result) async {
               localeProvider.setLocale(Locale(result));
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              await prefs.setString('languageCode', result);
             },
             itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
               const PopupMenuItem<String>(
